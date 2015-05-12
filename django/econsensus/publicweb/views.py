@@ -16,12 +16,12 @@ import unicodecsv
 
 from guardian.decorators import permission_required_or_403
 from notification import models as notification
-from organizations.models import Organization
+from organizations.models import Organization, OrganizationOwner, OrganizationUser
 from haystack.views import SearchView
 from waffle import switch_is_active
 
 from publicweb.forms import DecisionForm, FeedbackForm, YourDetailsForm,\
-    EconsensusActionItemCreateForm, EconsensusActionItemUpdateForm
+    EconsensusActionItemCreateForm, EconsensusActionItemUpdateForm, ChangeOwnerForm
 from publicweb.models import Decision, Feedback
 
 from actionitems.models import ActionItem
@@ -805,3 +805,15 @@ class DecisionSearchView(SearchView):
         def search_view(request, *args, **kwargs):
             return cls()(request, *args, **kwargs)
         return login_required(search_view)
+
+class ChangeOwnerView(UpdateView):
+    model = OrganizationOwner
+    form_class = ChangeOwnerForm
+    template_name_suffix = '_update_form'
+    def get_success_url(self):
+        return reverse('organization_admin',
+                kwargs={'organization_pk': self.object.organization.pk})
+    def get_form_kwargs(self):
+        kwargs = super(ChangeOwnerView, self).get_form_kwargs()
+        kwargs.update({'currentOrgPk': self.object.organization.pk})
+        return kwargs

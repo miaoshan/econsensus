@@ -8,7 +8,7 @@ from views import DecisionCreate, DecisionUpdate, \
                     FeedbackSnippetCreate, FeedbackUpdate, \
                     EconsensusActionitemCreateView, EconsensusActionitemUpdateView, \
                     EconsensusActionitemListView, OrganizationRedirectView, \
-                    YourDetails, \
+                    YourDetails, ChangeOwnerView, \
                     DecisionSearchView
 
 from actionitems.views import ActionItemUpdateView
@@ -91,7 +91,7 @@ urlpatterns = patterns('econsensus.publicweb.views',
         EconsensusActionitemDetailView.as_view(), 
         name='actionitem_detail'),                   
     url(r'^item/detail/(?P<decisionpk>[\d]+)/actionitem/(?P<pk>[\d]+)/update/$', 
-        EconsensusActionitemUpdateView.as_view(), 
+        EconsensusActionitemUpdateView.as_view(),
         name='actionitem_update'),
     url(r'^(?P<org_slug>[-\w]+)/actionitem/list/$',
         EconsensusActionitemListView.as_view(), 
@@ -103,4 +103,8 @@ urlpatterns = patterns('econsensus.publicweb.views',
     url(r'^$', 
         OrganizationRedirectView.as_view(),
         name='publicweb_root'),
+
+    url(r'^(?P<pk>[\d]+)/changeOwner/$',
+        ChangeOwnerView.as_view(),
+        name='organization_change_owner'),
     )
