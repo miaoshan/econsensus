@@ -5,7 +5,7 @@ Econsensus is an open source web application tool for consensus decision-making
 within one or more organizations, used and written by
 [Aptivate](http://aptivate.org).
 
-Send us an email at volunteering@aptivate.org 
+Send us an email at [volunteering@aptivate.org](mailto:volunteering@aptivate.org)
 to let us know you're interested in working on the project, and we'll be 
 in touch to see how we can support you.
 
